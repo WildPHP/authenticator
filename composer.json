@@ -9,10 +9,15 @@
             "email": "rick.2889@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "WildPHP\\Authenticator\\": "src/"
+        }
+    },
     "require": {
         "php": "^7.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6"
+        "phpunit/phpunit": "^7"
     }
 }

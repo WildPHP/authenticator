@@ -6,13 +6,11 @@
  * See the LICENSE file for more information.
  */
 
-use WildPHP\Authenticator\Authenticator;
+use PHPUnit\Framework\TestCase;
 
-class AuthenticatorTest extends \PHPUnit\Framework\TestCase
+class AuthenticatorTest extends TestCase
 {
-
     public function testAuthenticate()
     {
-
     }
 }
