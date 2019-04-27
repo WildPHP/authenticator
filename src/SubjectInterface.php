@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace WildPHP\Authenticator;
 
+use Yoshi2889\Collections\Collection;
+
 interface SubjectInterface
 {
     /**
@@ -23,12 +25,12 @@ interface SubjectInterface
     public function hasRole(RoleInterface $role): bool;
 
     /**
-     * @return array
+     * @return Collection
      */
-    public function getRoles(): array;
+    public function getRoleCollection(): Collection;
 
     /**
      * @return array
      */
-    public function toArray(): array;
+    public function getRolesArray(): array;
 }

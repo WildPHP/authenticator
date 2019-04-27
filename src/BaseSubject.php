@@ -9,14 +9,33 @@ declare(strict_types=1);
 
 namespace WildPHP\Authenticator;
 
-abstract class BaseSubject implements SubjectInterface
+use ValidationClosures\Types;
+use Yoshi2889\Collections\Collection;
+
+/**
+ * Class BaseSubject
+ * @package WildPHP\Authenticator
+ */
+class BaseSubject implements SubjectInterface
 {
     protected $identifier = '';
 
     /**
-     * @var RoleInterface[]
+     * @var Collection
      */
-    protected $roles = [];
+    protected $roles;
+
+    /**
+     * BaseSubject constructor.
+     * @param string $identifier
+     * @param array $initialRoles
+     */
+    public function __construct(string $identifier, array $initialRoles = [])
+    {
+        $this->roles = new Collection(Types::instanceof(RoleInterface::class), $initialRoles);
+        $this->identifier = $identifier;
+    }
+
 
     /**
      * @return string
@@ -26,16 +45,28 @@ abstract class BaseSubject implements SubjectInterface
         return $this->identifier;
     }
 
+    /**
+     * @param RoleInterface $role
+     * @return bool
+     */
     public function hasRole(RoleInterface $role): bool
     {
-        return in_array($role, $this->roles);
+        return $this->roles->contains($role);
     }
 
     /**
-     * @return RoleInterface[]
+     * @return Collection
      */
-    public function getRoles(): array
+    public function getRoleCollection(): Collection
     {
         return $this->roles;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRolesArray(): array
+    {
+        return $this->roles->getArrayCopy();
     }
 }

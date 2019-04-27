@@ -9,7 +9,10 @@ declare(strict_types=1);
 
 namespace WildPHP\Authenticator;
 
-abstract class BaseRole implements RoleInterface
+use ValidationClosures\Types;
+use Yoshi2889\Collections\Collection;
+
+class BaseRole implements RoleInterface
 {
     /**
      * @var string
@@ -17,9 +20,21 @@ abstract class BaseRole implements RoleInterface
     protected $identifier = '';
 
     /**
-     * @var PermissionInterface[]
+     * @var Collection
      */
-    protected $permissions = [];
+    protected $permissions;
+
+    /**
+     * BaseRole constructor.
+     * @param string $identifier
+     * @param array $initialPermissions
+     */
+    public function __construct(string $identifier, array $initialPermissions = [])
+    {
+        $this->identifier = $identifier;
+        $this->permissions = new Collection(Types::instanceof(PermissionInterface::class), $initialPermissions);
+    }
+
 
     /**
      * @return string
@@ -35,14 +50,22 @@ abstract class BaseRole implements RoleInterface
      */
     public function hasPermission(PermissionInterface $permission): bool
     {
-        return in_array($permission, $this->permissions);
+        return $this->permissions->contains($permission);
     }
 
     /**
-     * @return PermissionInterface[]
+     * @return Collection
      */
-    public function getPermissions(): array
+    public function getPermissionCollection(): Collection
     {
         return $this->permissions;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPermissionArray(): array
+    {
+        return $this->permissions->getArrayCopy();
     }
 }

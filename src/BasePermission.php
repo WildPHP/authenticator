@@ -9,7 +9,7 @@ declare(strict_types=1);
 
 namespace WildPHP\Authenticator;
 
-abstract class BasePermission implements PermissionInterface
+class BasePermission implements PermissionInterface
 {
     /**
      * @var string
@@ -20,6 +20,18 @@ abstract class BasePermission implements PermissionInterface
      * @var string
      */
     protected $friendlyString = '';
+
+    /**
+     * BasePermission constructor.
+     * @param string $identifier
+     * @param string $friendlyString
+     */
+    public function __construct(string $identifier, string $friendlyString = '')
+    {
+        $this->identifier = $identifier;
+        $this->friendlyString = $friendlyString;
+    }
+
 
     /**
      * @return string

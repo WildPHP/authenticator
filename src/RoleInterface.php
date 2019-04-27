@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace WildPHP\Authenticator;
 
+use Yoshi2889\Collections\Collection;
+
 interface RoleInterface
 {
     /**
@@ -23,12 +25,12 @@ interface RoleInterface
     public function hasPermission(PermissionInterface $permission): bool;
 
     /**
-     * @return PermissionInterface[]
+     * @return Collection
      */
-    public function getPermissions(): array;
+    public function getPermissionCollection(): Collection;
 
     /**
      * @return array
      */
-    public function toArray(): array;
+    public function getPermissionArray(): array;
 }
