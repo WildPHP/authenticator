@@ -10,7 +10,7 @@
   },
   "require": {
     "php": ">=7.2.0",
-    "yoshi2889/collections": "^0.1",
+    "yoshi2889/collections": "^0.1 || ^0.2",
     "yoshi2889/validation-closures": "^0.2"
   },
   "require-dev": {
